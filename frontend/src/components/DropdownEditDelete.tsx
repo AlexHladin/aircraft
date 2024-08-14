@@ -10,13 +10,13 @@ interface DefaultDropdownProps {
 const DropdownDefault = ({ onEdit, onDelete }: DefaultDropdownProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const trigger = useRef<any>(null);
-  const dropdown = useRef<any>(null);
+  const trigger = useRef<HTMLElement>(null);
+  const dropdown = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current) return;
-      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
+      if (!dropdownOpen || (target && dropdown.current.contains(target as Node)) || (target && trigger.current?.contains(target as Node))) return;
       setDropdownOpen(false);
     };
     document.addEventListener('click', clickHandler);
